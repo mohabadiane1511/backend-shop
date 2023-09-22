@@ -1,0 +1,156 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid" *ngIf="role==1">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5><span class="iconify" data-icon="carbon:data-table" id="listeicon"></span> LISTE DES FOURNISSEURS</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row" id="rowbeforetable">
+                        <div class="col-md-3">
+                          <input type="text" class="form-control search-field" placeholder="Rechercher un élément" [(ngModel)]="searchText" id="searchinput">
+                        </div>
+                        <div class="col-md-9">
+                            <a routerLink='/users/create-user'><button type="button" class="btn btn-primary" id="btnajoutproduit"><span class="iconify" data-icon="carbon:add-alt" id="iconAdd"></span> Ajouter fournisseur</button></a>
+                        </div>
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Fournisseur</th>
+                          <th scope="col">Téléphone</th>
+                          <th scope="col">Type contrat</th>
+                          <th scope="col">Email</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let fournisseur of items; index as i">
+                          <th scope="row">{{ i + 1 }}</th>
+                          <td>
+                            <ngb-highlight [result]="fournisseur.supplier.name | titlecase "></ngb-highlight>
+                          </td>
+                          <td>
+                            <ngb-highlight [result]="fournisseur.supplier.number"></ngb-highlight>
+                          </td>
+                          <td><ngb-highlight [result]="fournisseur.supplier.contractType"></ngb-highlight></td>
+                          <td><ngb-highlight [result]="fournisseur.email"></ngb-highlight></td>
+                          <td>
+                            <a data-target="#exampleModal1"  (click)="modifypopup(content1, fournisseur)" title="Modifier"><span class="iconify" data-icon="fa6-regular:pen-to-square" id="updateIcon"></span></a>&nbsp; 
+                            <a data-target="#exampleModal" (click)="deletepopup(content, fournisseur.supplier.id)" title="Desactiver"><iconify-icon icon="material-symbols:archive-outline" id="deleteIcon"></iconify-icon></a>&nbsp;
+                            <!--a data-target="#exampleModal2" title="Voir offres"><span class="iconify" data-icon="clarity:list-line" id="listeIcon"></span></a-->&nbsp;
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                      <div style="float:right">
+                        <p style='text-align:center'><jw-pagination [items]="items" (changePage)="onChangePage($event)"></jw-pagination></p> 
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->
+<!--ngx-spinner
+  bdColor="rgba(0,0,0,0.7)"
+  size="medium"
+  color="#fff"
+  type=""
+>
+
+  <p id="loadingcadre">
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="iconloading"></span><br/>
+    Loading...</p>
+</ngx-spinner-->
+
+<div class="container-fluid" *ngIf="role==2">
+ blabla
+</div>
+
+<!--modal delete-->
+<ng-template #content let-modal>
+  <div class="modal-header">
+      <h5 class="modal-title f-w-600" id="exampleModalLabel"><span class="iconify" data-icon="ic:outline-cancel" id="iconAdd"></span> SUPPRESSION FOURNISSEUR</h5>
+      <a id="btnfermer" aria-label="Close"
+          (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true" id="closeicon">&times;</span>
+      </a>
+  </div>
+  <div class="modal-body">
+      <form class="needs-validation">
+          <div class="row">
+              <div class="col">
+                
+              </div>
+            </div>
+          <div class="form">
+              <div class="form-group" *ngIf="isvisible">
+                  <p>Voulez vous desactiver ce fournisseur ?</p>
+              </div>
+              <div class="form-group" *ngIf="!isvisible">
+                <p *ngIf="msgsuccessdel" id="msgsuccess">{{ msgsuccessdel }}</p>
+                <p *ngIf="msgerrordel" id="msgerror">{{ msgerrordel }}</p>
+            </div>
+          </div>
+      </form>
+  </div>
+  <div class="modal-footer" *ngIf="isvisible">
+      <button type="button" class="btn btn-primary" id="btnsave" (click)="applyDelete(idDel)"><span class="iconify" data-icon="akar-icons:check-box"></span> Oui</button>
+      <button class="btn btn-primary" type="button" data-dismiss="modal"
+          (click)="modal.dismiss('Cross click')" id="btnclose"><span class="iconify" data-icon="ic:outline-cancel"></span> Non</button>
+  </div>
+  <div class="modal-footer" *ngIf="!isvisible">
+    <button type="button" class="btn btn-primary" id="btnclose" (click)="modal.dismiss('Cross click')"><span class="iconify" data-icon="akar-icons:check-box"></span> OK</button>
+</div>
+</ng-template>
+<!--modal delete-->
+
+<!--modal update-->
+<ng-template #content1 let-modal>
+  <div class="modal-header">
+      <h5 class="modal-title f-w-600" id="exampleModalLabel"><span class="iconify" data-icon="ic:outline-cancel" id="iconAdd"></span> MODIFICATION FOURNISSEUR</h5>
+      <a id="btnfermer" aria-label="Close"
+          (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true" id="closeicon">&times;</span>
+      </a>
+  </div>
+  <div class="modal-body">
+      <form class="needs-validation">
+          <div class="row">
+              <div class="col">
+                <p *ngIf="msgerrormodif" id="msgerror">{{ msgerrormodif }}</p>
+              </div>
+            </div>
+          <div class="form" *ngIf="inputModif">
+              <div class="form-group" *ngIf="isvisible">
+                <label>Nom fournisseur</label>
+                <input type="text" class="form-control" id="custominput" name="nom_fournisseur" [(ngModel)]="inputModif.supplier.name">
+              </div>
+              <div class="form-group" *ngIf="isvisible">
+                <label>Type de contrat</label>
+                <input type="text" class="form-control" id="custominput" name="contrat" [(ngModel)]="inputModif.supplier.contractType">
+              </div>
+              <div class="form-group" *ngIf="isvisible">
+                <label>Téléphone</label>
+                <input type="text" class="form-control" id="custominput" name="tel" [(ngModel)]="inputModif.supplier.number">
+              </div>
+              <div class="form-group" *ngIf="!isvisible">
+                <p *ngIf="msgsuccessmodif" id="msgsuccess">{{ msgsuccessmodif }}</p>
+                <p *ngIf="msgerrormodif" id="msgerror">{{ msgerrormodif }}</p>
+            </div>
+          </div>
+      </form>
+  </div>
+  <div class="modal-footer" *ngIf="isvisible">
+      <button type="button" class="btn btn-primary" id="btnclose" (click)="modifFournisseur(inputModif.supplier.name, inputModif.supplier.contractType, inputModif.supplier.id, inputModif.supplier.number)"><span class="iconify" data-icon="akar-icons:check-box"></span> Valider</button>
+      <button class="btn btn-primary" type="button" data-dismiss="modal"
+          (click)="modal.dismiss('Cross click')" id="btnsave"><span class="iconify" data-icon="ic:outline-cancel"></span> Annuler</button>
+  </div>
+  <div class="modal-footer" *ngIf="!isvisible">
+    <button type="button" class="btn btn-primary" id="btnclose" (click)="modal.dismiss('Cross click')"><span class="iconify" data-icon="akar-icons:check-box"></span> OK</button>
+</div>
+</ng-template>
+<!--modal update-->

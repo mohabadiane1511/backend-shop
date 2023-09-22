@@ -1,0 +1,162 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="card">
+                <div class="card-header">
+                    <h5><span class="iconify" data-icon="carbon:data-table" id="listeicon"></span> LISTE DES CATEGORIES</h5>
+                </div>
+                <div class="card-body">
+                    <div class="btn-popup pull-right">
+                        <!--button type="button" class="btn btn-primary" data-toggle="modal" data-original-title="test"
+                            data-target="#exampleModal" (click)="open(content)" id="btnadd"><span class="iconify" data-icon="carbon:add-alt" id="iconAdd"></span> Ajouter catégorie</button-->
+                    </div>
+                    <div class="row" id="rowbeforetable">
+                        <div class="col-md-6">
+                          <input type="text" class="form-control search-field" placeholder="Rechercher un élément" [(ngModel)]="searchText" id="searchinput">
+                        </div>
+                        <div class="col-md-6">
+                           
+                        </div>
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Nom</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let categorie of items; index as i">
+                          <th scope="row">{{ i + 1 }}</th>
+                          <td>
+                            <ngb-highlight [result]="categorie.name | titlecase "></ngb-highlight>
+                          </td>
+                          <td>
+                            <a data-target="#exampleModal1" (click)="modifypopup(content1, categorie)" title="Modifier"><span class="iconify" data-icon="fa6-regular:pen-to-square" id="updateIcon"></span></a>&nbsp; 
+                            <a data-target="#exampleModal" (click)="deletepopup(content, categorie.id)" title="Supprimer"><span class="iconify" data-icon="fluent:delete-12-regular" id="deleteIcon"></span></a>&nbsp;
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                      <div style="float:right">
+                        <p style='text-align:center'><jw-pagination [items]="items" (changePage)="onChangePage($event)"></jw-pagination></p> 
+                      </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="card">
+                <div class="card-header">
+                     <h5><span class="iconify" data-icon="carbon:add-alt"></span> AJOUT CATEGORIE</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row product-adding">
+                        <div class="col-lg-12">
+                            <form>
+                              <div class="row">
+                                <div class="col">
+                                  <p *ngIf="msgerrorcat" id="msgerror">{{ msgerrorcat }}</p>
+                                  <p *ngIf="msgsuccesscat" id="msgsuccess">{{ msgsuccesscat }}</p>
+                                  
+                                </div>
+                              </div>
+                                <div class="row">
+                                  <div class="col">
+                                    <label>Nom de la catégorie</label>
+                                    <input type="text" class="form-control" id="custominput" name="nom_categorie" [(ngModel)]="nom_categorie">
+                                  </div>
+                                </div>
+                                
+                                <div class="row" id="secondrow">
+                                    <div class="col">
+                                        <button type="button" class="btn btn-primary" id="btnadd1" (click)="addCatgorie()"><span class="iconify" data-icon="carbon:add-alt"></span> Ajouter</button>
+                                    </div>
+                                </div>
+                              </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->
+
+<!--modal delete-->
+<ng-template #content let-modal>
+  <div class="modal-header">
+      <h5 class="modal-title f-w-600" id="exampleModalLabel"><span class="iconify" data-icon="ic:outline-cancel" id="iconAdd"></span> SUPPRESSION CATEGORIE</h5>
+      <!--a id="btnfermer" aria-label="Close"
+          (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true" id="closeicon">&times;</span>
+      </a-->
+  </div>
+  <div class="modal-body">
+      <form class="needs-validation">
+          <div class="row">
+              <div class="col">
+                
+              </div>
+            </div>
+          <div class="form">
+              <div class="form-group" *ngIf="isvisible">
+                  <p>Voulez vous supprimer cette catégorie ?</p>
+              </div>
+              <div class="form-group" *ngIf="!isvisible">
+                <p *ngIf="msgsuccesscatpop" id="msgsuccess">{{ msgsuccesscatpop }}</p>
+                <p *ngIf="msgerrorcatpop" id="msgerror">{{ msgerrorcatpop }}</p>
+            </div>
+          </div>
+      </form>
+  </div>
+  <div class="modal-footer" *ngIf="isvisible">
+      <button type="button" class="btn btn-primary" id="btnsave" (click)="applyDelete(idDel)"><span class="iconify" data-icon="akar-icons:check-box"></span> Oui</button>
+      <button class="btn btn-primary" type="button" data-dismiss="modal"
+          (click)="modal.dismiss('Cross click')" id="btnclose"><span class="iconify" data-icon="ic:outline-cancel"></span> Non</button>
+  </div>
+  <div class="modal-footer" *ngIf="!isvisible">
+    <button type="button" class="btn btn-primary" id="btnclose" (click)="modal.dismiss('Cross click')"><span class="iconify" data-icon="akar-icons:check-box"></span> OK</button>
+</div>
+</ng-template>
+<!--modal delete-->
+
+<!--modal update-->
+<ng-template #content1 let-modal>
+  <div class="modal-header">
+      <h5 class="modal-title f-w-600" id="exampleModalLabel"><span class="iconify" data-icon="ic:outline-cancel" id="iconAdd"></span> MODIFICATION CATEGORIE</h5>
+      <!--a id="btnfermer" aria-label="Close"
+          (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true" id="closeicon">&times;</span>
+      </a-->
+  </div>
+  <div class="modal-body">
+      <form class="needs-validation">
+          <div class="row">
+              <div class="col">
+                <p *ngIf="msgerrorcatmodif" id="msgerror">{{ msgerrorcatmodif }}</p>
+              </div>
+            </div>
+          <div class="form" *ngIf="inputModif">
+              <div class="form-group" *ngIf="isvisible">
+                <label>Nom de la catégorie</label>
+                <input type="text" class="form-control" id="custominput" name="nom_categorie" [(ngModel)]="inputModif.name">
+              </div>
+              <div class="form-group" *ngIf="!isvisible">
+                <p *ngIf="msgsuccesscatmodif" id="msgsuccess">{{ msgsuccesscatmodif }}</p>
+                <p *ngIf="msgerrorcatmodif" id="msgerror">{{ msgerrorcatmodif }}</p>
+            </div>
+          </div>
+      </form>
+  </div>
+  <div class="modal-footer" *ngIf="isvisible">
+      <button type="button" class="btn btn-primary" id="btnclose" (click)="modifArticle(inputModif.name, inputModif.id)"><span class="iconify" data-icon="akar-icons:check-box"></span> Valider</button>
+      <button class="btn btn-primary" type="button" data-dismiss="modal"
+          (click)="modal.dismiss('Cross click')" id="btnsave"><span class="iconify" data-icon="ic:outline-cancel"></span> Annuler</button>
+  </div>
+  <div class="modal-footer" *ngIf="!isvisible">
+    <button type="button" class="btn btn-primary" id="btnclose" (click)="modal.dismiss('Cross click')"><span class="iconify" data-icon="akar-icons:check-box"></span> OK</button>
+</div>
+</ng-template>
+<!--modal update-->

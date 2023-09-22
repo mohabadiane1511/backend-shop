@@ -1,0 +1,96 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="card">
+                <div class="card-header">
+                  <div class="row" id="rowbeforetable">
+                    <div class="col-md-5">
+                      <h5><span class="iconify" data-icon="carbon:add-alt"></span> AJOUT OFFRE</h5>
+                  </div>
+                    <div class="col-md-7">
+                        <a routerLink='/vendors/list-vendors'><button type="button" class="btn btn-primary" id="btnajoutproduit"><span class="iconify" data-icon="carbon:data-table" id="iconList"></span> Liste des offres</button></a>
+                    </div>
+                </div>
+                     
+                </div>
+                <div class="card-body">
+                  
+                    <div class="row product-adding">
+                        <div class="col-lg-12">
+                            
+                            <form>
+                                <div class="row">
+                                  <div class="col">
+                                    <p *ngIf="msgerror" id="msgerror">{{ msgerror }}</p>
+                                    <p *ngIf="msgsuccess" id="msgsuccess">{{ msgsuccess }}</p>
+                                    
+                                  </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col">
+                                        <label>Produit</label>
+                                        <select class="form-control" id="custominput" name="nom" (change)="selectChangeHandler($event)">
+                                          <option disabled value="default" [selected]=true>Choisir un produit</option>
+                                          <option *ngFor="let produit of listproduit" value="{{ produit.id }}">{{ produit.name }}</option>
+                                        </select>
+                                    </div>
+                                  <div class="col">
+                                    <label>Prix</label>
+                                    <input type="number" class="form-control" id="custominput" name="prix" [(ngModel)]="prix">
+                                  </div>
+                                </div>
+                                <div class="row" id="secondrow">
+                                    <div class="col">
+                                        <label>Quantite</label>
+                                        <input type="number" class="form-control" id="custominput" name="quantite" [(ngModel)]="quantite">
+                                    </div>
+                                    <div class="col">
+                                        <label>Unité</label>
+                                        <select class="form-control" name="unite" (change)="uniteSelect($event)">
+                                          <option disabled value="default" [selected]=true>Choisir une unité</option>
+                                          <option value="Kilogramme">Kilogramme</option>
+                                          <!--option value="Gramme">Gramme</option>
+                                          <option value="Pièce">Pièce</option-->
+                                        </select>
+                                    </div>
+                                </div>
+                               
+                                <div class="row" id="secondrow">
+                                    <div class="col">
+                                        <button type="button" class="btn btn-primary" id="btnadd" (click)="addOffre()"><span class="iconify" data-icon="carbon:add-alt"></span> Ajouter</button>
+                                    </div>
+                                </div>
+                              </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="card">
+                <div class="card-header">
+                     <h5><span class="iconify" data-icon="carbon:add-alt"></span> STATISTIQUE</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row product-adding">
+                     
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->
+<ngx-spinner
+  bdColor="rgba(0,0,0,0.7)"
+  size="medium"
+  color="#fff"
+  type=""
+>
+
+  <p id="loadingcadre">
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="iconloading"></span><br/>
+    Loading...</p>
+</ngx-spinner>

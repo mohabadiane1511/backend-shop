@@ -1,0 +1,73 @@
+<div class="page-wrapper">
+    <div class="authentication-box" id="boxauth">
+        <div class="container">
+
+            <div class="row">
+                <!--div class="col-md-5 p-0 card-left">
+                    <img src="src/assets/images/login.jpg"/>
+                </div-->
+                <div class="col-md-7" id="cadreform">
+                    <div class="card tab2-card">
+                        <div class="card-body text-center">
+                            <a href="#"><img src="https://i.ibb.co/wK4s99H/Whats-App-Image-2023-09-21-at-21-22-45.jpg"
+                                    alt="logokamfish" border="0" id="logoLogin"></a>
+                            <!--span class="iconify" data-icon="bxs:user-rectangle" style="font-size:4em"></span-->
+                            <p><span id="connectext">Espace d'administration</span></p>
+                            <ngb-tabset class="tab-coupon mb-0">
+                                <ngb-tab>
+                                    <ng-template ngbTabTitle></ng-template>
+
+                                    <ng-template ngbTabContent>
+                                        <div class="tab-pane fade active show" id="account" role="tabpanel"
+                                            aria-labelledby="account-tab">
+
+                                            <form class="form-horizontal auth-form">
+                                                <div class="form-group">
+                                                    <p *ngIf="msgerror" id="error">{{ msgerror }}</p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <p>Email <span class="iconify" data-icon="fluent:mail-16-filled"
+                                                            id="emailicon"></span></p>
+                                                    <input type="email" class="form-control" name="email"
+                                                        [(ngModel)]="email">
+                                                </div><br />
+                                                <div class="form-group">
+                                                    <p>Mot de passe <span class="iconify"
+                                                            data-icon="academicons:closed-access-square"
+                                                            id="passwordicon"></span></p>
+                                                    <input type="password" class="form-control" name="password"
+                                                        [(ngModel)]="password">
+                                                </div>
+
+                                                <div class="form-button">
+                                                    <button class="btn btn-primary" type="submit" id="btnlogin"
+                                                        (click)="login()"> <span class="iconify"
+                                                            data-icon="akar-icons:arrow-right"></span> Valider</button>
+                                                </div>
+                                                <!--a id="forgotpassword">Mot de passe oublié ? cliquez ici</a-->
+
+                                            </form>
+                                        </div>
+                                    </ng-template>
+                                </ngb-tab>
+
+                            </ngb-tabset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--a [routerLink]="'/dashboard/default'" class="btn btn-primary back-btn">
+                <app-feather-icons [icon]="'arrow-left'"></app-feather-icons>
+                back
+            </a-->
+        </div>
+    </div>
+</div>
+
+<ngx-spinner bdColor="rgba(0,0,0,0.7)" size="medium" color="#fff" type="">
+
+    <p id="loadingcadre">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="iconloading"></span><br />
+        Loading...
+    </p>
+</ngx-spinner>

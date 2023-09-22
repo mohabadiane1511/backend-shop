@@ -1,0 +1,97 @@
+th{
+    font-weight: 500!important;
+    font-size: 0.9em;
+}
+
+td{
+    font-size: 0.9em;
+}
+
+thead{
+    background-color: rgba(39, 157, 211, 0.1);
+}
+
+#loadingcadre{
+    font-size: 16px; color: white;text-align:center;
+}
+
+.form-group label, .form-control{
+    font-size: 0.9em!important;
+}
+
+#custominput{
+    height: 45px;
+}
+
+#iconloading{
+    height:40px;width: 40px;
+}
+
+#msgerror{
+    color:darkred;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+#msgsuccess{
+    color:green;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(160, 67, 67, 0.03)!important;
+}
+
+#btnajoutproduit{
+    float: right;
+    text-transform: none;
+    letter-spacing: 0px;
+    font-size:0.9em;
+}
+
+#btnsave, #btnclose{
+    font-size: 0.9em;
+    color:#ffffff!important;
+    letter-spacing: 0px;
+    text-transform: none;
+}
+
+#btnsave{
+ background-color:red!important;
+ border: none;
+}
+
+#searchinput{
+    height:45px;
+    font-size: 0.9em;
+}
+
+#rowbeforetable{
+    margin-bottom: 30px;
+}
+
+#iconAdd, #listeicon{
+    margin-top:-2.5px;
+}
+
+#listeicon{
+   font-size:0.87em;
+}
+
+#imgProduit{
+    width: 60px;
+}
+
+#updateIcon{
+    color:green;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+#deleteIcon{
+    color: red;
+    font-weight: bold;
+    font-size: 1.1em;
+}

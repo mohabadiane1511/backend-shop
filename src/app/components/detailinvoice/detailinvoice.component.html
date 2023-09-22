@@ -1,0 +1,165 @@
+<!-- Container-fluid starts-->
+<div>
+  <div class="page-wrapper">
+    <app-header (rightSidebarEvent)="rightSidebar($event)"></app-header>
+    <div class="page-body-wrapper">
+      <div class="page-sidebar" [class.open]="navServices.collapseSidebar">
+        <app-sidebar></app-sidebar>
+        <div class="right-sidebar" [class.show]="right_side_bar" id="right_side_bar">
+          <app-right-sidebar></app-right-sidebar>
+        </div>
+      </div>
+      <div class="page-body">
+        <app-breadcrumb></app-breadcrumb>
+        <!--add code-->
+        <!-- Container-fluid starts-->
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="card">
+                <div class="card-header">
+                  <h5><span class="iconify" data-icon="carbon:data-table" id="listeicon"></span> DETAIL DE LA COMMANDE
+                    #{{ id }}</h5>
+                </div>
+                <div class="card-body">
+                  <div class="row" id="rowbeforetable">
+                    <div class="col-md-3">
+                      <input type="text" class="form-control search-field" placeholder="Rechercher un élément"
+                        id="searchinput">
+                    </div>
+                    <div class="col-md-9">
+                      <a routerLink='/invoice'><button type="button" class="btn btn-primary" id="btnajoutproduit"><span
+                            class="iconify" data-icon="carbon:data-table" id="listeicon"></span> Liste des
+                          commandes</button></a>
+                    </div>
+                  </div>
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Produit</th>
+                        <th scope="col">Quantité</th>
+                        <th scope="col">Total ( Fcfa )</th>
+                        <th scope="col">Fournisseur</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let orderitem of pageOfItems; index as i">
+                        <td>
+                          <ngb-highlight [result]="orderitem.id"></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight [result]="orderitem.product.name | titlecase "></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight [result]="orderitem.quantity"></ngb-highlight>
+                        </td>
+                        <td>
+                          <ngb-highlight [result]="orderitem.amount | number"></ngb-highlight>
+                        </td>
+
+                        <td *ngIf="!orderitem.offre">-----</td>
+                        <td *ngIf="orderitem.offre">{{ orderitem.offre.supplier.number }} - {{
+                          orderitem.offre.supplier.name | titlecase}}</td>
+                        <td>
+                          <a data-target="#exampleModal1"
+                            (click)="chooseSupplier(content, orderitem.id, orderitem.product.id)" title="Modifier">
+                            <iconify-icon icon="material-symbols:attribution-outline" id="updateIcon"></iconify-icon>
+                          </a>&nbsp;
+                          <!--a data-target="#exampleModal" title="Supprimer"><span class="iconify" data-icon="fluent:delete-12-regular" id="deleteIcon"></span></a-->&nbsp;
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div style="float:right">
+                    <p style='text-align:center'>
+                      <jw-pagination [items]="items" (changePage)="onChangePage($event)"></jw-pagination>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Container-fluid Ends-->
+        <!--add code-->
+        <!-- <router-outlet></router-outlet> -->
+      </div>
+      <footer class="footer">
+        <app-footer></app-footer>
+      </footer>
+    </div>
+  </div>
+  <div class="btn-light custom-theme" [class.rtl]="layoutClass" (click)="clickRtl(layoutType)">{{layoutType}}</div>
+</div>
+
+
+<ngx-spinner bdColor="rgba(0,0,0,0.7)" size="medium" color="#fff" type="">
+
+  <p id="loadingcadre">
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="iconloading"></span><br />
+    Loading...
+  </p>
+</ngx-spinner>
+
+
+<!--modal delete-->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title f-w-600" id="exampleModalLabel">
+      <iconify-icon icon="healthicons:i-exam-multiple-choice-outline" id="iconAdd"></iconify-icon>CHOISIR FOURNISSEUR
+    </h5>
+    <!--a id="btnfermer" aria-label="Close"
+            (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true" id="closeicon">&times;</span>
+        </a-->
+  </div>
+  <div class="modal-body">
+    <p>Liste des offres</p>
+    <table class="table table-striped" *ngIf="isvisible==true">
+      <thead>
+        <tr>
+          <th scope="col">Produit</th>
+          <th scope="col">Fournisseur</th>
+          <th scope="col">Prix ( Fcfa )</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let supplierproduct of product_supplier; index as i">
+
+          <td>
+            <ngb-highlight [result]="supplierproduct.product.name | titlecase"></ngb-highlight>
+          </td>
+          <td>
+            {{ supplierproduct.supplier.number }} - {{ supplierproduct.supplier.name | titlecase }}
+
+          </td>
+          <td>
+            <ngb-highlight [result]="supplierproduct.price | number"></ngb-highlight>
+          </td>
+          <td>
+            <a data-target="#exampleModal" (click)="engageSupplier(supplierproduct.id, orderItem)" title="Choose">
+              <iconify-icon icon="ant-design:select-outlined" id="deleteIcon1"></iconify-icon>
+            </a>&nbsp;
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="isvisible==false">
+      <p id="msgsuccess">Votre modification a été effectuée avec succés !</p>
+    </div>
+
+  </div>
+
+  <div class="modal-footer" *ngIf="isvisible==true">
+    <button type="button" class="btn btn-primary" id="btnclose" (click)="modal.dismiss('Cross click')"><span
+        class="iconify" data-icon="akar-icons:check-box"></span> Fermer</button>
+  </div>
+  <div class="modal-footer" *ngIf="isvisible==false">
+    <button type="button" class="btn btn-primary" id="btnclose" (click)="modal.dismiss('Cross click')"><span
+        class="iconify" data-icon="akar-icons:check-box"></span> OK</button>
+  </div>
+</ng-template>
+<!--modal delete-->

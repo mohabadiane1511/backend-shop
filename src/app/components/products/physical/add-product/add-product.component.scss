@@ -1,0 +1,74 @@
+h5{
+    letter-spacing: 0px;
+}
+
+.iconify{
+    margin-top: -4px;
+}
+
+#custominput{
+    height:45px;
+}
+
+#secondrow{
+    margin-top:25px;
+}
+
+form label{
+    font-size:0.9em
+}
+
+#loadingcadre{
+    font-size: 16px; color: white;text-align:center;
+}
+
+#iconloading{
+    height:40px;width: 40px;
+}
+
+.custom-file-label::after {
+    padding: 1.4rem 0.75rem!important;
+    line-height: 0!important;
+    background-color: #279DD3!important;
+    color:#ffffff!important;
+    content: "Parcourir"!important;
+}
+
+#btnadd{
+    float:right;
+    background-color: #279DD3!important;
+    color:#ffffff!important;
+    letter-spacing: 0px;
+    text-transform: capitalize;
+}
+
+#msgerror{
+    color:darkred;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+#msgsuccess{
+    color:green;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+#btnajoutproduit{
+    float: right;
+    text-transform: none;
+    letter-spacing: 0px;
+    font-size:0.9em;
+}
+
+.btn-primary{
+    font-size: 0.9em!important;
+}
+
+#rowbeforetable{
+    margin-bottom: 30px;
+}
+
+#iconList{
+    margin-top:-2px;
+}

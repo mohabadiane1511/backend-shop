@@ -1,0 +1,178 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <h5><span class="iconify" data-icon="carbon:data-table" id="listeicon"></span> LISTE DES COMMANDES</h5>
+        </div>
+        <div class="card-body">
+          <div class="row" id="rowbeforetable">
+            <div class="col-md-3">
+              <!--input type="text" class="form-control search-field" placeholder="Rechercher un élément" id="searchinput"-->
+              <button type="button" class="btn btn-success" (click)="exportExcel()" style="text-transform:capitalize!important;color:#ffffff!important;border:none;background:#419bc5!important">Excel</button>
+            </div>
+            <div class="col-md-9">
+
+            </div>
+          </div>
+          <table class="table table-striped" id="excel-table">
+            <thead>
+              <tr>
+                <th scope="col">No</th>
+                <th scope="col">Nom client</th>
+                <th scope="col">Téléphone</th>
+                <th scope="col">Statut</th>
+                <th scope="col">Montant ( Fcfa )</th>
+                <th scope="col">Date</th>
+                <th scope="col">Adresse</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr *ngFor="let commande of pageOfItems; index as i">
+                <td>
+                  {{commande.id}}
+                </td>
+                <td>
+                  {{commande.customer.firstname +" "+ commande.customer.lastname | titlecase}}
+                </td>
+                <td>{{ commande.customer.phonenumber }}</td>
+                <td *ngIf="commande.statusOrder=='Commande en cours'">
+                  En cours
+                  <!--i class="fa fa-circle" aria-hidden="true" style="font-size:0.75em;color:orange"></i-->
+                </td>
+                <td *ngIf="commande.statusOrder=='Commande annulée'">
+                  Annulée
+                  <!--i class="fa fa-circle" aria-hidden="true" style="font-size:0.75em;color:red"></i-->
+                </td>
+                <td *ngIf="commande.statusOrder=='Commande terminée'">
+                  Terminée
+                  <!--i class="fa fa-circle" aria-hidden="true" style="font-size:0.75em;color:green"></i-->
+                </td>
+                <td>
+                  {{ commande.amount | number}}
+                </td>
+                <td>{{ commande.date | date: 'dd/MM/yy, à HH:mm' }}</td>
+                <td>{{commande.city.name | titlecase }}</td>
+                <td>
+                  <a (click)="openPopup(content, commande.id)" title="Détail commande">
+                    <iconify-icon icon="material-symbols:list-alt-outline" id="updateIcon"></iconify-icon>
+                  </a>&nbsp;
+                  <a [routerLink]="['/detailinvoice', commande.id]" title="Choisir une offre"
+                    *ngIf="commande.statusOrder=='Commande en cours'">
+                    <iconify-icon icon="fluent:more-circle-32-regular" id="updateIcon"></iconify-icon>
+                  </a>&nbsp;
+                  <a title="Terminé" (click)="terminerCommande(commande.id)" title="Terminer commande">
+                    <iconify-icon icon="ant-design:check-circle-outlined" id="validIcon"></iconify-icon>
+                  </a>&nbsp;
+                  <a title="Supprimer" (click)="annulerCommande(commande.id)" title="Annuler commande"
+                    *ngIf="commande.statusOrder!='Commande terminée'">
+                    <iconify-icon icon="clarity:archive-line" id="deleteIcon"></iconify-icon>
+                  </a>&nbsp;
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div style="float:right">
+            <p style='text-align:center'>
+              <jw-pagination [items]="items" (changePage)="onChangePage($event)"></jw-pagination>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Container-fluid Ends-->
+
+<ngx-spinner bdColor="rgba(0,0,0,0.7)" size="medium" color="#fff" type="">
+
+  <p id="loadingcadre">
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="iconloading"></span><br />
+    Loading...
+  </p>
+</ngx-spinner>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+	<div class="modal-header">
+		<h5 class="modal-title" id="modal-basic-title" id="titlemodal"><iconify-icon icon="healthicons:i-exam-multiple-choice-outline" id="iconAdd"></iconify-icon> DETAIL COMMANDE</h5>
+	
+	</div>
+	<div class="modal-body" *ngIf="orderFirst">
+		<p>Commande No #{{  commandeID }}</p>
+      <p>Date : {{orderFirst.order.date | date: 'dd/MM/yy, à HH:mm' }}</p>
+      <p>Lieu de livraison : {{orderFirst.order.city.name}} ( {{orderFirst.order.city.deliveryzone.price}} FCFA)</p>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">Produit</th>
+          <th scope="col">Quantité</th>
+          <th scope="col">Total ( Fcfa )</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let orderitem of order; index as i">
+          <td>
+            {{ orderitem.product.name | titlecase }}
+          </td>
+          <td>
+            {{ orderitem.quantity }} kg
+          </td>
+          <td>
+           {{orderitem.amount | number}}
+          </td>
+        </tr>
+        </tbody>       
+      </table>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-dark" (click)="c('Save click')" id="btnclosed">Fermer</button>
+	</div>
+</ng-template>
+
+<table class="table table-striped" id="excel-table1" style="display:none">
+  <thead>
+    <tr>
+      <th scope="col">No</th>
+      <th scope="col">Nom client</th>
+      <th scope="col">Téléphone</th>
+      <th scope="col">Statut</th>
+      <th scope="col">Montant ( Fcfa )</th>
+      <th scope="col">Date</th>
+      <th scope="col">Adresse</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr *ngFor="let commande of pageOfItems; index as i">
+      <td>
+        {{commande.id}}
+      </td>
+      <td>
+        {{commande.customer.firstname +" "+ commande.customer.lastname | titlecase}}
+      </td>
+      <td>{{ commande.customer.phonenumber }}</td>
+      <td *ngIf="commande.statusOrder=='Commande en cours'">
+        En cours
+        <!--i class="fa fa-circle" aria-hidden="true" style="font-size:0.75em;color:orange"></i-->
+      </td>
+      <td *ngIf="commande.statusOrder=='Commande annulée'">
+        Annulée
+        <!--i class="fa fa-circle" aria-hidden="true" style="font-size:0.75em;color:red"></i-->
+      </td>
+      <td *ngIf="commande.statusOrder=='Commande terminée'">
+        Terminée
+        <!--i class="fa fa-circle" aria-hidden="true" style="font-size:0.75em;color:green"></i-->
+      </td>
+      <td>
+        {{ commande.amount | number}}
+      </td>
+      <td>{{ commande.date | date: 'dd/MM/yy, à HH:mm' }}</td>
+      <td>{{commande.city.name | titlecase }}</td>
+    </tr>
+  </tbody>
+</table>

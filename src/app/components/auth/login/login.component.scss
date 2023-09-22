@@ -1,0 +1,92 @@
+#btnlogin{
+    text-transform: capitalize!important;
+    letter-spacing: 0px;
+    background-color: #279DD3 !important;
+    border-color: #279DD3 !important;
+}
+
+#logoLogin{
+    width: 50%;
+}
+
+#iconloading{
+    height:40px;width: 40px;
+}
+
+
+
+#connectext{
+    font-size: 1.3em;
+    letter-spacing: 0px;
+    color: #000000;
+    font-weight: 500;
+}
+
+.tab2-card ul {
+    display: none!important;
+}
+
+#forgotpassword{
+    letter-spacing: 0px;
+    font-size: 0.95em;
+    float: left;
+    margin-top: 20px;
+}
+
+.auth-form .form-control {
+    border-radius: 5px!important;
+    font-size: 0.9em!important;
+}
+
+.authentication-box .btn-primary {
+    border-radius: 5px!important;
+}
+
+.form-group p{
+    letter-spacing: 0px;
+    text-align: left;
+    color: #000000;
+    font-family: "Poppins",sans-serif;
+    margin-bottom: 2px;
+    font-size: 0.95em;
+    font-weight: 500;
+}
+
+#cadreform{
+    margin:0px auto!important;
+}
+
+#emailicon{
+    margin-top: -1px;
+}
+
+#passwordicon{
+    font-size: 0.8em;
+    margin-top: -3px;
+}
+
+.authentication-box .container .form-group {
+     margin-bottom: 0rem!important; 
+}
+
+#error{
+    color:darkred;
+    font-weight: 500;
+    font-size: 0.95em;
+    letter-spacing: 0px;
+}
+
+#loadingcadre{
+    font-size: 16px; color: white;text-align:center;
+}
+
+#sucess{
+    color:green;
+    font-weight: 500;
+    font-size: 0.95em;
+    letter-spacing: 0px;
+}
+
+#boxauth{
+    background-color:rgba(39,157,211,0.2);
+}

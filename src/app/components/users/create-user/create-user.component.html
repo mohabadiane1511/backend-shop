@@ -1,0 +1,97 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="card">
+                <div class="card-header">
+                  <div class="row" id="rowbeforetable">
+                    <div class="col-md-7">
+                      <h5><span class="iconify" data-icon="carbon:add-alt"></span> AJOUT FOURNISSEUR</h5>
+                  </div>
+                    <div class="col-md-5">
+                        <a routerLink='/users/list-user'><button type="button" class="btn btn-primary" id="btnajoutproduit"><span class="iconify" data-icon="carbon:data-table" id="iconList"></span> Liste des fournisseurs</button></a>
+                    </div>
+                </div>
+                     
+                </div>
+                <div class="card-body">
+                  
+                    <div class="row product-adding">
+                        <div class="col-lg-12">
+                            
+                            <form>
+                                <div class="row">
+                                  <div class="col">
+                                    <p *ngIf="msgerror" id="msgerror">{{ msgerror }}</p>
+                                    <p *ngIf="msgsuccess" id="msgsuccess">{{ msgsuccess }}</p>
+                                    
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col">
+                                    <label>Nom entreprise</label>
+                                    <input type="text" class="form-control" id="custominput" name="nom" [(ngModel)]="nom_entreprise">
+                                  </div>
+                                  <div class="col">
+                                    <label>Type de contrat</label>
+                                    <input type="text" class="form-control" id="custominput" name="type" [(ngModel)]="type">
+                                  </div>
+                                </div>
+                                <div class="row" id="secondrow">
+                                      <div class="col">
+                                            <label>Email</label>
+                                            <input type="email" class="form-control" id="custominput" name="email" [(ngModel)]="email">
+                                      </div>
+                                      <div class="col">
+                                            <label>Password</label>
+                                            <input type="password" class="form-control" id="custominput" name="password" [(ngModel)]="password" >
+                                      </div>
+                                </div>
+                                <div class="row" id="secondrow">
+                                  <div class="col">
+                                        <label>Téléphone</label>
+                                        <input type="text" class="form-control" id="custominput" name="tel" [(ngModel)]="tel">
+                                  </div>
+                            </div>
+                               
+                                <div class="row" id="secondrow">
+                                    <div class="col">
+                                        <button type="button" class="btn btn-primary" id="btnadd" (click)="addFournisseur()"><span class="iconify" data-icon="carbon:add-alt"></span> Ajouter</button>
+                                    </div>
+                                </div>
+                              </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="card">
+                <div class="card-header">
+                     <h5><span class="iconify" data-icon="carbon:add-alt"></span> STATISTIQUES</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row product-adding">
+                        <div class="col-lg-12">
+                           <p>Note d'information : </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->
+
+<ngx-spinner
+  bdColor="rgba(0,0,0,0.7)"
+  size="medium"
+  color="#fff"
+  type=""
+>
+
+  <p id="loadingcadre">
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="iconloading"></span><br/>
+    Loading...</p>
+</ngx-spinner>

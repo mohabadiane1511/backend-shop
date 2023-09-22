@@ -1,0 +1,118 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="card">
+                <div class="card-header">
+                  <div class="row" id="rowbeforetable">
+                    <div class="col-md-5">
+                      <h5><span class="iconify" data-icon="carbon:add-alt"></span> AJOUT PRODUIT</h5>
+                  </div>
+                    <div class="col-md-7">
+                        <a routerLink='/products/physical/product-list'><button type="button" class="btn btn-primary" id="btnajoutproduit"><span class="iconify" data-icon="carbon:data-table" id="iconList"></span> Liste des produits</button></a>
+                    </div>
+                </div>
+                     
+                </div>
+                <div class="card-body">
+                  
+                    <div class="row product-adding">
+                        <div class="col-lg-12">
+                            
+                            <form>
+                                <div class="row">
+                                  <div class="col">
+                                    <p *ngIf="msgerror" id="msgerror">{{ msgerror }}</p>
+                                    <p *ngIf="msgsuccess" id="msgsuccess">{{ msgsuccess }}</p>
+                                    
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col">
+                                    <label>Nom</label>
+                                    <input type="text" class="form-control" id="custominput" name="nom" [(ngModel)]="nom">
+                                  </div>
+                                  <div class="col">
+                                    <label>Prix</label>
+                                    <input type="number" class="form-control" id="custominput" name="prix" [(ngModel)]="prix">
+                                  </div>
+                                </div>
+                                <div class="row" id="secondrow">
+                                    <div class="col">
+                                      <label>Image</label>
+                                      <input (change)="fileChange($event)" type="file" name="file" class="form-control" id="custominput">
+                                    </div>
+                                    <div class="form-group col">
+                                      <label>Catégorie</label>
+                                      <select class="form-control" id="custominput" name="categorie" (change)="selectChangeHandler($event)">
+                                        <option disabled value="1" [selected]=true>Choisir une catégorie</option>
+                                        <option *ngFor="let categorie of listcategorie" value="{{ categorie.id }}">{{ categorie.name }}</option>
+                                      </select>
+                                    </div>
+                                </div>
+                                <div class="row" id="secondrow">
+                                    <div class="col">
+                                        <label>Description</label>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description" [(ngModel)]="description"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row" id="secondrow">
+                                    <div class="col">
+                                        <button type="button" class="btn btn-primary" id="btnadd" (click)="addProduit()"><span class="iconify" data-icon="carbon:add-alt"></span> Ajouter</button>
+                                    </div>
+                                </div>
+                              </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="card">
+                <div class="card-header">
+                     <h5><span class="iconify" data-icon="carbon:add-alt"></span> AJOUT CATEGORIE</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row product-adding">
+                        <div class="col-lg-12">
+                            <form>
+                              <div class="row">
+                                <div class="col">
+                                  <p *ngIf="msgerrorcat" id="msgerror">{{ msgerrorcat }}</p>
+                                  <p *ngIf="msgsuccesscat" id="msgsuccess">{{ msgsuccesscat }}</p>
+                                  
+                                </div>
+                              </div>
+                                <div class="row">
+                                  <div class="col">
+                                    <label>Nom de la catégorie</label>
+                                    <input type="text" class="form-control" id="custominput" name="nom_categorie" [(ngModel)]="nom_categorie">
+                                  </div>
+                                </div>
+                                
+                                <div class="row" id="secondrow">
+                                    <div class="col">
+                                        <button type="button" class="btn btn-primary" id="btnadd" (click)="addCatgorie()"><span class="iconify" data-icon="carbon:add-alt"></span> Ajouter</button>
+                                    </div>
+                                </div>
+                              </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->
+<ngx-spinner
+  bdColor="rgba(0,0,0,0.7)"
+  size="medium"
+  color="#fff"
+  type=""
+>
+
+  <p id="loadingcadre">
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="iconloading"></span><br/>
+    Loading...</p>
+</ngx-spinner>

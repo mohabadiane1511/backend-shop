@@ -1,0 +1,122 @@
+#btnadd{
+    font-size: 0.9em;
+    background-color: #279DD3!important;
+    color:#ffffff!important;
+    letter-spacing: 0px;
+    text-transform: none;
+}
+
+#btnfermer{
+    background:#ffffff;border:none;
+}
+
+#btnfermer:active, #btnfermer:focus{
+    background:#ffffff;border:none;
+}
+
+#closeicon{
+    font-size: 2em;
+    font-weight: 500;
+}
+
+.form-control {
+    border-radius: 5px!important;
+    font-size: 0.9em!important;
+}
+
+#btnadd1{
+    float:right;
+    background-color: #279DD3!important;
+    color:#ffffff!important;
+    letter-spacing: 0px;
+    text-transform: none;
+    margin-top: 20px;
+    font-size: 0.9em;
+}
+
+form label{
+    font-size:0.9em
+}
+
+#searchinput{
+    height:45px;
+    font-size: 0.9em;
+}
+
+#btnsave, #btnclose{
+    font-size: 0.9em;
+    color:#ffffff!important;
+    letter-spacing: 0px;
+    text-transform: none;
+}
+
+#btnsave{
+ background-color:red!important;
+ border: none;
+}
+
+th{
+    font-weight: 500!important;
+    font-size: 0.9em;
+}
+
+td{
+    font-size: 0.9em;
+}
+
+thead{
+    background-color: rgba(39, 157, 211, 0.1);
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(160, 67, 67, 0.03)!important;
+}
+
+#rowbeforetable{
+    margin-bottom: 30px;
+}
+
+#updateIcon{
+    color:green;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+#deleteIcon{
+    color: red;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+#listeicon{
+    font-size:0.87em;
+ }
+
+
+#iconAdd{
+    margin-top:-2.5px;
+}
+
+.form-control{
+    height:50px;
+}
+
+#msgerror{
+    color:darkred;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+#msgsuccess{
+    color:green;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+#loadingcadre{
+    font-size: 16px; color: white;text-align:center;
+}
+
+#iconloading{
+    height:40px;width: 40px;
+}
